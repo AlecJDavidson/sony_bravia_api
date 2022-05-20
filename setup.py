@@ -1,4 +1,4 @@
-from setuptools import setup,find_packages
+from setuptools import setup, find_packages
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -6,6 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name='sony_bravia_api',
     version='1.00',
+    license='MIT',
     author='Alec J. Davidson',
     author_email='alecjdavidson@outlook.com',
     description='Sony Bravia API for controlling Sony Bravia Smart TV',
@@ -17,11 +18,13 @@ setup(
     },
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: Open Source",
+        "License :: MIT",
         "Operating System :: OS Independent",
     ],
+    packages=find_packages("src"),
     package_dir={"": "src"},
-    packages=find_packages(where="src"),
     python_requires=">=3.8",
-    zip_safe=False
+    install_requires=[
+        'requests',
+    ],
 )

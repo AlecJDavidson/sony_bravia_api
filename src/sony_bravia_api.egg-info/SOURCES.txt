@@ -2,9 +2,6 @@ README.md
 pyproject.toml
 setup.cfg
 setup.py
-src/sony_bravia_api/__init__.py
-src/sony_bravia_api/iirc_codes.py
-src/sony_bravia_api/sony_bravia_api.py
 src/sony_bravia_api.egg-info/PKG-INFO
 src/sony_bravia_api.egg-info/SOURCES.txt
 src/sony_bravia_api.egg-info/dependency_links.txt
