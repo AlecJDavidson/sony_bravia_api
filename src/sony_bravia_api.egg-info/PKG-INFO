@@ -5,13 +5,13 @@ Summary: Sony Bravia API for controlling Sony Bravia Smart TV
 Home-page: https://github.com/AlecJDavidson/sony_bravia_api.git
 Author: Alec J. Davidson
 Author-email: alecjdavidson@outlook.com
-License: UNKNOWN
+License: MIT
 Project-URL: Bug Tracker, https://github.com/AlecJDavidson/sony_bravia_api.git/issues
 Description: Going to update this later.
         
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
-Classifier: License :: Open Source
+Classifier: License :: MIT
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
