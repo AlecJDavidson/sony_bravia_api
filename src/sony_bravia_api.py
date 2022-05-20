@@ -2,7 +2,7 @@
 import requests
 import json
 from time import sleep
-from sony_bravia_api.iirc_codes import *
+from iirc_codes import *
 
 ### Create TV Class ###
 
