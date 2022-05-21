@@ -18,7 +18,7 @@ setup(
     },
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: MIT",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     packages=find_packages("src"),
