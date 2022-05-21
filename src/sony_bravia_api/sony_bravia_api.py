@@ -2,36 +2,33 @@
 import requests
 import json
 from time import sleep
-from sony_bravia_api.iirc_codes import *
+from .iirc_codes import *
 
 ### Create TV Class ###
 
 class TV:
 
-    def __init__(self, name, local_ip, public_ip, endpoint, security_token):
+    def __init__(self, name, ip_address, endpoint, security_token):
         self.name = name = name
-        self.local_ip = local_ip
-        self.public_ip = public_ip
+        self.ip_address = ip_address
         self.endpoint = endpoint
         self.security_token = security_token
 
 ### Sony Bravia Smart TV Control Modules ###
 
+
 class Bravia(TV):
-    def send(service, method, params, id=1):
-        headers = {'X-Auth-PSK': Bravia.security_token}
+
+    def send(self, service, method, params, id=1):
+        headers = {'X-Auth-PSK': self.security_token}
         body = {"method": method, "version": "1.0", "id": id,
                 "params": [params]}
         return requests.post(
-            Bravia.endpoint+service, data=json.dumps(body), headers=headers)
+            self.endpoint+service, data=json.dumps(body), headers=headers)
 
-    def send_irc_code(ircc_code):
+    def send_iirc_code(self, ircc_code):
 
-        if Bravia.public_ip:
-            ip = Bravia.public_ip
-        else:
-            ip = Bravia.local_ip
-        url = 'http://'+ip+'/sony/ircc'
+        url = 'http://'+self.ip_address+'/sony/ircc'
         payload = ('<?xml version="1.0"?>'
                    '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">'
                    '<s:Body>'
@@ -42,10 +39,11 @@ class Bravia(TV):
                    '</s:Envelope>') % ircc_code
 
         response = requests.post(
+
             url,
             data=payload,
             headers={
-                'X-Auth-PSK': Bravia.security_token,
+                'X-Auth-PSK': self.security_token,
                 'SOAPAction': '"urn:schemas-sony-com:service:IRCC:1#X_SendIRCC"'
             }
         )
@@ -56,105 +54,102 @@ class Bravia(TV):
             print(response)
             return response
 
-    def setVol(val):
-        Bravia.send('audio', 'setAudioVolume', {
-                    "target": "speaker", "volume": val})
+    def setVol(self, val):
+        self.send('audio', 'setAudioVolume', {
+                  "target": "speaker", "volume": val})
         # setVol("10")
 
-    def setMute(val):
-        Bravia.send('audio', 'setAudioMute', {"status": val})
+    def setMute(self, val):
+        self.send('audio', 'setAudioMute', {"status": val})
         # setMute(False)
 
-    def setPower(val):
-        Bravia.send('system', 'setPowerStatus', {"status": val})
+    def setPower(self, val):
+        self.send('system', 'setPowerStatus', {"status": val})
         # setPower(True)
 
-    def setExtInput(kind, port):
+    def setExtInput(self, kind, port):
         uri = "extInput:"+kind+"?port="+port
-        Bravia.send('avContent', 'setPlayContent', {"uri": uri})
+        self.send('avContent', 'setPlayContent', {"uri": uri})
         # setExtInput('hdmi', '1')
-    
 
-    def getPowerStatus():
-        return Bravia.send('system','getPowerStatus',None,50).json()['result']
+    def getPowerStatus(self):
+        return self.send('system', 'getPowerStatus', None, 50).json()['result']
 
+    def getApplicationList(self):
+        return self.send('appControl', 'getApplicationList', None).json()['result']
 
-    def getApplicationList():
-        return Bravia.send('appControl', 'getApplicationList', None).json()['result']
-
-
-    def setActiveApplication(app_name):
-        app_list = Bravia.getApplicationList()
+    def setActiveApplication(self, app_name):
+        app_list = self.getApplicationList()
         for apps in app_list:
             for i in apps:
                 title = i["title"]
                 uri = i["uri"]
                 app = {"title": title, "uri": uri}
                 if app_name == app['title'].lower():
-                    Bravia.send('appControl', 'setActiveApp', {"uri": uri})
+                    self.send('appControl', 'setActiveApp', {"uri": uri})
                     sleep(10)
-                    
-    def getRemoteControllerInfo():
-        Bravia.send('system', 'getRemoteControllerInfo', None)
 
-    def pause():
-        Bravia.send_irc_code(Pause)
+    def getRemoteControllerInfo(self):
+        self.send('system', 'getRemoteControllerInfo', None)
 
-    def play():
-        Bravia.send_irc_code(Play)
+    def pause(self):
+        self.send_iirc_code(Pause)
 
-    def home():
-        Bravia.send_irc_code(Home)
+    def play(self):
+        self.send_iirc_code(Play)
 
-    def back():
-        Bravia.send_irc_code(Return)
+    def home(self):
+        self.send_iirc_code(Home)
 
-    def volUp():
-        Bravia.send_irc_code(VolumeUp)
+    def back(self):
+        self.send_iirc_code(Return)
 
-    def volDown():
-        Bravia.send_irc_code(VolumeDown)
+    def volUp(self):
+        self.send_iirc_code(VolumeUp)
 
-    def mute():
-        Bravia.send_irc_code(Mute)
+    def volDown(self):
+        self.send_iirc_code(VolumeDown)
 
-    def power():
-        Bravia.send_irc_code(TvPower)
+    def mute(self):
+        self.send_iirc_code(Mute)
 
-    def confirm():
-        Bravia.send_irc_code(Confirm)
+    def power(self):
+        self.send_iirc_code(TvPower)
 
-    def next():
-        Bravia.send_irc_code(Next)
+    def confirm(self):
+        self.send_iirc_code(Confirm)
 
-    def prev():
-        Bravia.send_irc_code(Prev)
+    def next(self):
+        self.send_iirc_code(Next)
 
-    def rewind():
-        Bravia.send_irc_code(Rewind)
+    def prev(self):
+        self.send_iirc_code(Prev)
 
-    def forward():
-        Bravia.send_irc_code(Forward)
-    
-    def up():
-        Bravia.send_irc_code(Up)
+    def rewind(self):
+        self.send_iirc_code(Rewind)
+
+    def forward(self):
+        self.send_iirc_code(Forward)
+
+    def up(self):
+        self.send_iirc_code(Up)
         sleep(.25)
 
-    def down():
-        Bravia.send_irc_code(Down)
+    def down(self):
+        self.send_iirc_code(Down)
         sleep(.25)
 
-    def left():
-        Bravia.send_irc_code(Left)
+    def left(self):
+        self.send_iirc_code(Left)
         sleep(.25)
 
-    def right():
-        Bravia.send_irc_code(Right)
+    def right(self):
+        self.send_iirc_code(Right)
         sleep(.25)
 
-    def exit():
-        Bravia.send_irc_code(Exit)
+    def exit(self):
+        self.send_iirc_code(Exit)
 
 
-# bravia = Bravia('<device_name>', '<ip_address>', '<public_ip>',
+# bravia = Bravia('<device_name>', '<ip_address>',
 #                 'http://<ip_address>/sony/', '<security_token>')

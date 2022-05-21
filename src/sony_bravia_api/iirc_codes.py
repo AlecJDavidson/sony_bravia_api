@@ -1,4 +1,4 @@
-### Sony RMF-TX500 Remote Control IIRC Codes
+# Sony RMF-TX500 Remote Control IIRC Codes
 
 Home = "AAAAAQAAAAEAAABgAw=="
 Return = "AAAAAgAAAJcAAAAjAw=="
