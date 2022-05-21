@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: sony-bravia-api
-Version: 1.0
+Version: 1.1
 Summary: Sony Bravia API for controlling Sony Bravia Smart TV
 Home-page: https://github.com/AlecJDavidson/sony_bravia_api.git
 Author: Alec J. Davidson
@@ -19,13 +19,13 @@ Description: # Sony Bravia Smart TV Control API
         Install from pypi:
         
         ```
-        pip install sony-bravia-api==1.0
+        pip install sony-bravia-api==1.01
         ```
         
         Download and install the latest release using pip:
         
         ```
-        pip3 install sony_bravia_api-1.0.tar.gz
+        pip3 install sony_bravia_api-1.01.tar.gz
         ```
         
         ## Usage
