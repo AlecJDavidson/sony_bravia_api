@@ -2,7 +2,7 @@
 import requests
 import json
 from time import sleep
-from iirc_codes import *
+from sony_bravia_api.iirc_codes import *
 
 ### Create TV Class ###
 
@@ -31,7 +31,6 @@ class Bravia(TV):
             ip = Bravia.public_ip
         else:
             ip = Bravia.local_ip
-
         url = 'http://'+ip+'/sony/ircc'
         payload = ('<?xml version="1.0"?>'
                    '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">'
