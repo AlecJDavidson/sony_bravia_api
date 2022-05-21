@@ -11,7 +11,7 @@ Description: Going to update this later.
         
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
-Classifier: License :: MIT
+Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
