@@ -10,13 +10,13 @@ Using this api is virtually the same as using the remote.
 Install from pypi:
 
 ```
-pip install sony-bravia-api==1.0
+pip install sony-bravia-api==1.01
 ```
 
 Download and install the latest release using pip:
 
 ```
-pip3 install sony_bravia_api-1.0.tar.gz
+pip3 install sony_bravia_api-1.01.tar.gz
 ```
 
 ## Usage

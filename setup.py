@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='sony_bravia_api',
-    version='1.00',
+    version='1.01',
     license='MIT',
     author='Alec J. Davidson',
     author_email='alecjdavidson@outlook.com',
